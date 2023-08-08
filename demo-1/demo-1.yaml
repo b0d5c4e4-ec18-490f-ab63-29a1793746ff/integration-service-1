@@ -5,23 +5,23 @@ metadata:
 spec:
   flows:
     - route:
+        id: demo-route-1
+        group: demo-group-1
         from:
+          uri: "kamelet:kafka-not-secured-source"
           id: kafka-consumer-1
           parameters:
-            bootstrapServers: 185.154.195.177:9092
-            topic: public.com.neoflex.demo.client.portfolio.data
+            topic: "public.com.neoflex.demo.client.portfolio.data"
+            bootstrapServers: '185.154.195.177:9092'
           steps:
-            - to:
-                id: log-info-1
-                uri: log:info?showAll=true&multiline=true
-          uri: kamelet:kafka-not-secured-source
-        group: demo-group-1
-        id: demo-route-1
+          - to:
+              uri: "log:info?showAll=true&multiline=true"
+              id: log-info-1
   traits:
     addons:
       telemetry:
-        auto: true
         enabled: true
+        telemetry.endpoint: http://jaeger-collector:4317
     logging:
       enabled: true
       json: true
