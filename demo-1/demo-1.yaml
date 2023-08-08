@@ -21,7 +21,7 @@ spec:
     addons:
       telemetry:
         enabled: true
-        telemetry.endpoint: http://jaeger-collector:4317
+        endpoint: http://jaeger-collector:4317
     logging:
       enabled: true
       json: true
