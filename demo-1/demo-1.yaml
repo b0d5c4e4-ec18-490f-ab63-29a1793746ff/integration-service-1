@@ -1,0 +1,27 @@
+apiVersion: camel.apache.org/v1
+kind: Integration
+metadata:
+  name: demo-1
+spec:
+  flows:
+    - route:
+        from:
+          id: kafka-consumer-1
+          parameters:
+            bootstrapServers: 185.154.195.177:9092
+            topic: public.com.neoflex.demo.client.portfolio.data
+          steps:
+            - to:
+                id: log-info-1
+                uri: log:info?showAll=true&multiline=true
+          uri: kamelet:kafka-not-secured-source
+        group: demo-group-1
+        id: demo-route-1
+  traits:
+    addons:
+      telemetry:
+        auto: true
+        enabled: true
+    logging:
+      enabled: true
+      json: true
