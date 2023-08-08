@@ -1,0 +1,19 @@
+# camel-k: language=yaml
+# camel-k: trait=logging.enabled=true
+# camel-k: trait=logging.json=true
+# camel-k: trait=telemetry.enabled=true
+# camel-k: trait=telemetry.endpoint=http://jaeger-collector:4317
+
+- route:
+    id: demo-route-1
+    group: demo-group-1
+    from:
+      uri: "kamelet:kafka-not-secured-source"
+      id: kafka-consumer-1
+      parameters:
+        topic: "public.com.neoflex.demo.client.portfolio.data"
+        bootstrapServers: '185.154.195.177:9092'
+      steps:
+      - to:
+          uri: "log:info?showAll=true&multiline=true"
+          id: log-info-1
